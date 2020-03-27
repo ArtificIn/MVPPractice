@@ -9,6 +9,6 @@
 import Foundation
 
 struct Model {
-    var number : Float
+    var number : Int
     var history : String
 }

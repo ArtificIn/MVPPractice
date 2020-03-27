@@ -19,57 +19,40 @@ class Presenter {
 }
 
 extension Presenter {
-    func ActionNumberMethod(num : Float){
-        print("presenter end")
-        model.number = num
-        view.updateValueString(value: String(num))
-    }
-    func ActionResultMethod(){
-        
-    }
-    func ActionPlusMethod(){
-        view.updateValueString(value: "+")
-    }
-    func ActionMinusMethod(){
-        view.updateValueString(value: "-")
-    }
-    func ActionMultipleMethod(){
-        view.updateValueString(value: "x")
-    }
-    func ActionDivideMethod(){
-        view.updateValueString(value: "/")
-    }
-    func ActionModMethod(){
-        view.updateValueString(value: "%")
-    }
-    func ActionBracketMethod(){
-        
-    }
-    func ActionTurnMethod(){
-        
-    }
-    func ActionFloatMethod(){
-        
-    }
-    
-    func calculator(value1: Float, value2: Float, index: String) -> Float{
-        var result : Float = 0.0
-        switch index {
-        case "+":
-            result = value1 + value2
-            break
-        case "-":
-            result = value1 - value2
-            break
-        case "/":
-            result = value1 / value2
-            break
-        case "%":
-//            result = value1 % value2
-            break
+    func tagAction(tag: Int){
+        switch tag {
+        case 0...9:
+            model.history.append(String(tag))
+            view.updateLabel(index: model.history)
+        case 10:
+            model.history.append("+")
+            view.updateLabel(index: model.history)
+        case 11:
+            model.history.append("-")
+            view.updateLabel(index: model.history)
+        case 12:
+            model.history.append("*")
+            view.updateLabel(index: model.history)
+        case 13:
+            model.history.append("/")
+            view.updateLabel(index: model.history)
+        case 14:
+            model.history.append("%")
+            view.updateLabel(index: model.history)
+        case 15:
+            model.history.append(".")
+            view.updateLabel(index: model.history)
+        case 16:
+            model.history.removeLast()
+            view.updateLabel(index: model.history)
+        case 17:
+            let expression = NSExpression(format: model.history)
+            let result = expression.expressionValue(with: nil, context: nil) ?? 0
+            model.number = result as! Int
+            print("result = \(result)")
+            view.updateHistory(index: String(model.number))
         default:
-            print("calculate")
+            fatalError("Unknown button tag")
         }
-        return result
     }
 }
