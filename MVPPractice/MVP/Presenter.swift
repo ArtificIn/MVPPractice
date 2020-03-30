@@ -8,13 +8,16 @@
 
 import Foundation
 
-class Presenter {
+protocol PresenterProtocol : class {
+    func tagAction(tag: Int)
+}
+
+class Presenter : PresenterProtocol {
     private let view : ValueUpdate
-    private var model : Model
+    private var model = Model(number: 0, history: "" )
     
-    init(view: View, model : Model) {
+    init(view: View) {
         self.view = view
-        self.model = model
     }
 }
 

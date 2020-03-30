@@ -20,11 +20,10 @@ class View: UIViewController, UITextViewDelegate {
     @IBOutlet weak var label: UILabel!
     
     @IBAction func buttonPressed(_ sender: UIButton){
-        presenter?.tagAction(tag: sender.tag)
+        presenter!.tagAction(tag: sender.tag)
     }
 
-    private var presenter : Presenter?
-    private var model : Model!
+    private var presenter : PresenterProtocol?
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -38,8 +37,7 @@ class View: UIViewController, UITextViewDelegate {
     }
     
     private func initialize() {
-        model = Model(number: 0, history: "")
-        presenter = Presenter(view: self, model: model)
+        presenter = Presenter(view: self)
     }
 }
 
